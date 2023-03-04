@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BAD9BF51-82C1-4533-8171-3E5BDDB1D694}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E20DCD38-5B58-4841-9740-F0E5D9B4A736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentLocalization", "src\FluentLocalization\FluentLocalization.csproj", "{D77D9E47-142A-4870-8AC1-ED1F17736225}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D77D9E47-142A-4870-8AC1-ED1F17736225} = {BAD9BF51-82C1-4533-8171-3E5BDDB1D694}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D77D9E47-142A-4870-8AC1-ED1F17736225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77D9E47-142A-4870-8AC1-ED1F17736225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77D9E47-142A-4870-8AC1-ED1F17736225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77D9E47-142A-4870-8AC1-ED1F17736225}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
