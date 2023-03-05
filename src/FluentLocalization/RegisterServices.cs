@@ -1,0 +1,50 @@
+using System.Reflection;
+using FluentLocalization.Common.Abstract;
+using FluentLocalization.Common.Concrete;
+using FluentLocalization.Common.Options;
+using FluentLocalization.Common.Providers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace FluentLocalization;
+
+public static class RegisterServices
+{
+    public static IMvcBuilder AddFluentLocalization(this IServiceCollection services)
+    {
+        services.AddSingleton<IFluentLocalizer, FluentLocalizer>((service) =>
+            new FluentLocalizer(FluentLocalizationGlobals.FluentConfigurations));
+        services.AddSingleton<IFluentConfigurations, FluentConfigurations>();
+        services.AddSingleton<IFluentRegisterService, FluentRegisterService>((service) =>
+        {
+            var a = new FluentRegisterService(service.GetServices<IFluentConfiguration>(),
+                service.GetService<IFluentConfigurations>());
+            a.Register();
+            return a;
+        });
+        services.AddTransient<IConfigureOptions<MvcOptions>, FluentLocalizationActivationOption>();
+        services.AddOptions<MvcOptions>()
+            .Configure<IFluentModelMetadataProvider>((options, provider) =>
+            {
+                options.ModelMetadataDetailsProviders.Add(provider);
+            });
+        return services.AddMvc();
+    }
+    
+    public static void ApplyFluentLocalizationFromAssembly(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        var a = assemblies.SelectMany(x => x.GetTypes())
+            .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFluentConfiguration<>)))
+            .ToList();
+        
+        foreach (var e in a)
+        {
+            services.AddTransient(e.GetInterfaces().Single(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFluentConfiguration<>)), e);
+            
+            services.AddTransient(typeof(IFluentConfiguration), e);
+        }
+        
+    }
+}
