@@ -18,7 +18,7 @@ public class FluentPropertyConfiguration : IFluentPropertyConfiguration
         _displayName = displayName;
         return this;
     }
-
+    
     public IFluentPropertyConfiguration Description(string description)
     {
         _description = description;

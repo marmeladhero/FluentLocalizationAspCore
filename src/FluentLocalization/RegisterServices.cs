@@ -11,25 +11,16 @@ namespace FluentLocalization;
 
 public static class RegisterServices
 {
-    public static IMvcBuilder AddFluentLocalization(this IServiceCollection services)
+    public static IServiceCollection AddFluentLocalization(this IServiceCollection services)
     {
-        services.AddSingleton<IFluentLocalizer, FluentLocalizer>((service) =>
-            new FluentLocalizer(FluentLocalizationGlobals.FluentConfigurations));
-        services.AddSingleton<IFluentConfigurations, FluentConfigurations>();
-        services.AddSingleton<IFluentRegisterService, FluentRegisterService>((service) =>
-        {
-            var a = new FluentRegisterService(service.GetServices<IFluentConfiguration>(),
-                service.GetService<IFluentConfigurations>());
-            a.Register();
-            return a;
-        });
+        services.AddSingleton<IFluentModelMetadataProvider, FluentModelMetadataProvider>();
         services.AddTransient<IConfigureOptions<MvcOptions>, FluentLocalizationActivationOption>();
         services.AddOptions<MvcOptions>()
             .Configure<IFluentModelMetadataProvider>((options, provider) =>
             {
                 options.ModelMetadataDetailsProviders.Add(provider);
             });
-        return services.AddMvc();
+        return services;
     }
     
     public static void ApplyFluentLocalizationFromAssembly(this IServiceCollection services, params Assembly[] assemblies)
@@ -42,7 +33,6 @@ public static class RegisterServices
         foreach (var e in a)
         {
             services.AddTransient(e.GetInterfaces().Single(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFluentConfiguration<>)), e);
-            
             services.AddTransient(typeof(IFluentConfiguration), e);
         }
         

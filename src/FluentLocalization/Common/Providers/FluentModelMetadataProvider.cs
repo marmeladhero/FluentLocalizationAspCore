@@ -10,35 +10,37 @@ public interface IFluentModelMetadataProvider : IDisplayMetadataProvider
 
 internal class FluentModelMetadataProvider : IFluentModelMetadataProvider
 {
-    private readonly IFluentLocalizer _localizer;
+    private readonly List<IFluentConfiguration> _configurations;
 
-    public FluentModelMetadataProvider(IFluentLocalizer localizer)
+    public FluentModelMetadataProvider(IEnumerable<IFluentConfiguration> configurations)
     {
-        _localizer = localizer;
+        _configurations = configurations.ToList();
     }
 
     public void CreateDisplayMetadata(DisplayMetadataProviderContext context)
     {
-        
-        var modelType = context.Key.ModelType;
-        var modelMetadata = context.DisplayMetadata;
-
-        if (modelType.IsClass)
+        if (_configurations.Any(x => x.GetBaseType == context.Key.ContainerType))
         {
-            var properties = modelType.GetProperties();
-            foreach (var property in properties)
+            var configuration = _configurations.First(x => x.GetBaseType == context.Key.ContainerType);
+            if (configuration.Configurations.TryGetValue(context.Key.Name, out var cfg))
             {
-                var propertyName = property.Name;
-
-                var propertyDisplayName = _localizer.GetDisplayName(modelType, propertyName) ?? propertyName;
-                var propertyDescription = _localizer.GetDescription(modelType, propertyName);
-                var propertyPlaceholder = _localizer.GetPlaceholder(modelType, propertyName);
-                
-                if (!string.IsNullOrEmpty(propertyDisplayName))
+                var propertyDisplayName = cfg.GetDisplayName;
+                var propertyDescription = cfg.GetDescription;
+                var propertyPlaceholder = cfg.GetPlaceholder;
+            
+                if (string.IsNullOrEmpty(propertyDisplayName) == false)
                 {
-                    modelMetadata.DisplayName = () => propertyDisplayName;
-                    modelMetadata.Placeholder = () => propertyPlaceholder;
-                    modelMetadata.Description = () => propertyDescription;
+                    context.DisplayMetadata.DisplayName = () => propertyDisplayName;
+                }
+
+                if (string.IsNullOrEmpty(propertyDescription) == false)
+                {
+                    context.DisplayMetadata.Description = () => propertyDescription;
+                }
+
+                if (string.IsNullOrEmpty(propertyPlaceholder) == false)
+                {
+                    context.DisplayMetadata.Placeholder = () => propertyPlaceholder;
                 }
             }
         }

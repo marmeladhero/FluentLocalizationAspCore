@@ -7,6 +7,7 @@ namespace FluentLocalization.Common.Concrete;
 public abstract class AbstractFluentConfigurationLocalization<T> : IFluentConfiguration<T> where T : class
 {
     public Dictionary<string, IFluentPropertyConfiguration> Configurations { get; }
+    public Type GetBaseType => typeof(T);
 
     public AbstractFluentConfigurationLocalization()
     {
