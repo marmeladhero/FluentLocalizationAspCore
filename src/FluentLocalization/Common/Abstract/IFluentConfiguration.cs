@@ -5,7 +5,6 @@ namespace FluentLocalization.Common.Abstract;
 public interface IFluentConfiguration
 {
     Dictionary<string, IFluentPropertyConfiguration> Configurations { get; }
-    Type GetBaseType { get; }
 }
 
 public interface IFluentConfiguration<T> : IFluentConfiguration where T : class
@@ -15,6 +14,8 @@ public interface IFluentConfiguration<T> : IFluentConfiguration where T : class
 
 public interface IFluentPropertyConfiguration
 {
+    Type ContainerType { get; }
+    
     string? GetDisplayName { get; }
     string? GetDescription { get; }
     string? GetPlaceholder { get; }

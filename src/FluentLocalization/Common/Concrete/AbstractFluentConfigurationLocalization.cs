@@ -7,8 +7,6 @@ namespace FluentLocalization.Common.Concrete;
 public abstract class AbstractFluentConfigurationLocalization<T> : IFluentConfiguration<T> where T : class
 {
     public Dictionary<string, IFluentPropertyConfiguration> Configurations { get; }
-    public Type GetBaseType => typeof(T);
-
     public AbstractFluentConfigurationLocalization()
     {
         Configurations = new Dictionary<string, IFluentPropertyConfiguration>();
@@ -16,15 +14,22 @@ public abstract class AbstractFluentConfigurationLocalization<T> : IFluentConfig
     
     public IFluentPropertyConfiguration For<TKey>(Expression<Func<T, TKey>> expression)
     {
+        var mainType = typeof(T);
+       
         var key = expression.GetMemberName();
         
-        if (Configurations.ContainsKey(key))
+        var containerType = expression.GetContainerType();
+        
+        string name = string.Empty;
+        
+        name = containerType.FullName + "." + key; 
+        
+        if (Configurations.ContainsKey(name))
         {
-            return Configurations[key];
+            return Configurations[name];
         }
-
-        var cfg = new FluentPropertyConfiguration();
-        Configurations.Add(key, cfg);
+        FluentPropertyConfiguration cfg = new FluentPropertyConfiguration(containerType);
+        Configurations.Add(name, cfg);
         return cfg;
     }
 }

@@ -1,4 +1,5 @@
 using FluentLocalization.Common.Abstract;
+using FluentLocalization.Common.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace FluentLocalization.Common.Providers;
@@ -19,10 +20,13 @@ internal class FluentModelMetadataProvider : IFluentModelMetadataProvider
 
     public void CreateDisplayMetadata(DisplayMetadataProviderContext context)
     {
-        if (_configurations.Any(x => x.GetBaseType == context.Key.ContainerType))
+        var fullPropertyName= context.Key.GetFullPropertyName();
+
+        var configuration = _configurations.FirstOrDefault(x => x.Configurations.ContainsKey(fullPropertyName));
+
+        if (configuration != null)
         {
-            var configuration = _configurations.First(x => x.GetBaseType == context.Key.ContainerType);
-            if (configuration.Configurations.TryGetValue(context.Key.Name, out var cfg))
+            if (configuration.Configurations.TryGetValue(fullPropertyName, out var cfg))
             {
                 var propertyDisplayName = cfg.GetDisplayName;
                 var propertyDescription = cfg.GetDescription;
