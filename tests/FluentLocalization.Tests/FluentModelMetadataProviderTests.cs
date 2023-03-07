@@ -1,19 +1,28 @@
+using FluentLocalization.Common.Abstract;
 using FluentLocalization.Common.Providers;
 
 namespace FluentLocalization.Tests;
 
 public class FluentModelMetadataProviderTests
 {
-    private readonly IFluentModelMetadataProvider _fluentModelMetadataProvider;
+    private readonly IEnumerable<IFluentConfiguration>? _configurations;
 
-    public FluentModelMetadataProviderTests(IFluentModelMetadataProvider fluentModelMetadataProvider)
+    public FluentModelMetadataProviderTests( IEnumerable<IFluentConfiguration>? configurations)
     {
-        _fluentModelMetadataProvider = fluentModelMetadataProvider;
+        _configurations = configurations;
     }
     
     [Fact]
     public void GetMetadataForPropertyTests()
     {
-        
+        foreach (var cfg in _configurations)
+        {
+            var properties = cfg.Configurations;
+            
+            foreach (var property in properties)
+            {
+                
+            }
+        }
     }
 }

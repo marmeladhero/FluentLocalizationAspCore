@@ -8,5 +8,8 @@ public class DummyClassConfiguration : AbstractFluentConfigurationLocalization<D
     public DummyClassConfiguration()
     {
         For(x => x.Property).DisplayName("DisplayNameProperty").Description("DescriptionProperty").Placeholder("PlaceholderProperty");
+        For(x => x.Property1).DisplayName("DisplayNameProperty1").Description("DescriptionProperty1").Placeholder("PlaceholderProperty1");
+        For(x => x.NestedClass.Property2).DisplayName("DisplayNameProperty2").Description("DescriptionProperty2").Placeholder("PlaceholderProperty2");
+        For(x => x.NestedClass.NestedNestedClass.Property3).DisplayName("DisplayNameProperty3").Description("DescriptionProperty3").Placeholder("PlaceholderProperty3");
     }
 }

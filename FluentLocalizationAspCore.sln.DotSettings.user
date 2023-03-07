@@ -1,8 +1,9 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Users\marme\.nuget\packages\microsoft.aspnetcore.mvc\2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3fd9db68_002D2163_002D44d3_002D9c7e_002D08c283648964/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::14728F23-C81B-4EB1-954F-E95FD48B6749::net7.0::FluentLocalization.Tests.ActivationTests.RegisterConfigurationTests&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::14728F23-C81B-4EB1-954F-E95FD48B6749::net7.0::FluentLocalization.Tests.LocalizerConfigurationTests.TestClassConfiguration&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::14728F23-C81B-4EB1-954F-E95FD48B6749::net7.0::FluentLocalization.Tests.LocalizerConfigurationTests.TestLocalizer&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::14728F23-C81B-4EB1-954F-E95FD48B6749::net7.0::FluentLocalization.Tests.FluentModelMetadataProviderTests.GetMetadataForPropertyTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
