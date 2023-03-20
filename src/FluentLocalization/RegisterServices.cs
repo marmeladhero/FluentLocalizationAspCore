@@ -32,8 +32,8 @@ public static class RegisterServices
         
         foreach (var e in a)
         {
-            services.AddSingleton(e.GetInterfaces().Single(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFluentConfiguration<>)), e);
-            services.AddSingleton(typeof(IFluentConfiguration), e);
+            services.AddTransient(e.GetInterfaces().Single(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IFluentConfiguration<>)), e);
+            services.AddTransient(typeof(IFluentConfiguration), e);
         }
     }
 }

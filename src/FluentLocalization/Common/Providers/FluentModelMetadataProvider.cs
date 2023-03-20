@@ -23,8 +23,9 @@ internal class FluentModelMetadataProvider : IFluentModelMetadataProvider
 
     public void CreateDisplayMetadata(DisplayMetadataProviderContext context)
     {
-        if(_configurations == null)
+        if(_configurations == null || context == null)
             return;
+        
         try
         {
             var fullPropertyName= context.Key.GetFullPropertyName();

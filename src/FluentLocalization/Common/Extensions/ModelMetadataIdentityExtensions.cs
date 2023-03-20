@@ -11,7 +11,7 @@ public static class ModelMetadataIdentityExtensions
     /// <returns></returns>
     public static string? GetFullPropertyName(this ModelMetadataIdentity key)
     {
-        if (string.IsNullOrEmpty(key.Name))
+        if (string.IsNullOrEmpty(key.Name) || string.IsNullOrEmpty(key.ContainerType?.FullName))
             return string.Empty;
         
         return key.ContainerType.FullName + "." + key.Name;
