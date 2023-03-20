@@ -23,7 +23,7 @@ public static class RegisterServices
         return services;
     }
     
-    public static void ApplyFluentLocalizationFromAssembly(this IServiceCollection services, params Assembly[] assemblies)
+    public static void ApplyFluentLocalizationFromAssemblies(this IServiceCollection services, params Assembly[] assemblies)
     {
         var a = assemblies.SelectMany(x => x.GetTypes())
             .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces()

@@ -20,10 +20,9 @@ public void ConfigureServices(IServiceCollection services)
 ```
 ### Add Localization Configuration From Assemblies
 To add localization configuration from assemblies, you need to call the `AddLocalizationConfigurationFromAssemblies` method in your `Startup.cs` file.
-
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
-    services.ApplyFluentLocalizationFromAssembly();
+    services.ApplyFluentLocalizationFromAssemblies(Assembly.GetAssembly(typeof(Startup)));
 }
 ```
