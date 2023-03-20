@@ -26,3 +26,30 @@ public void ConfigureServices(IServiceCollection services)
     services.ApplyFluentLocalizationFromAssemblies(Assembly.GetAssembly(typeof(Startup)));
 }
 ```
+It is also possible to add localization configuration from multiple assemblies.
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.ApplyFluentLocalizationFromAssemblies(Assembly.GetAssembly(typeof(Startup)), Assembly.GetAssembly(typeof(OtherClass)));
+}
+```
+### How it works
+It's uses `IDisplayMetadataProvider` interface to add localization configuration to the model.
+
+### Example usage
+```csharp
+public class Person 
+{
+    public string Name { get; set; }
+}
+
+public class PersonLocalizationConfiguration : AbstractFluentConfigurationLocalization<Person>
+{
+    public override void Configure()
+    {
+        For(x => x.Name).DisplayName("User name");
+    }
+}
+```
+And it will automatically replace the display name of the `Name` property with `User name`.
+Works in razor pages 100%
