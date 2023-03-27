@@ -2,7 +2,10 @@
 Fluent Localization is a simple localization library for .NET Core. It is based on the [Fluent API](https://en.wikipedia.org/wiki/Fluent_interface) and is designed to be easy to use and easy to extend.
 
 ## Installation
-Fluent Localization is available on [NuGet](https://www.nuget.org/packages/FluentLocalizationAspCore/).
+Fluent Localization is available on [NuGet](https://www.nuget.org/packages/FluentLocalization/).
+```bash
+dotnet add package FluentLocalization
+```
 
 ```
 PM> Install-Package FluentLocalizationAspCore
