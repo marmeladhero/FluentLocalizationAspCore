@@ -28,8 +28,31 @@ public abstract class AbstractFluentConfigurationLocalization<T> : IFluentConfig
         {
             return Configurations[name];
         }
-        FluentPropertyConfiguration cfg = new FluentPropertyConfiguration(containerType);
-        Configurations.Add(name, cfg);
+        
+        var cfg = new FluentPropertyConfiguration(Configurations, containerType);
+        cfg.AddKey(name);
+        return cfg;
+    }
+
+    public IFluentPropertyConfiguration<T, TKey> ForEnumerable<TKey>(Expression<Func<T, TKey>> expression)
+    {
+        var mainType = typeof(T);
+       
+        var key = expression.GetMemberName();
+        
+        var containerType = expression.GetContainerType();
+        
+        string name = string.Empty;
+        
+        name = containerType.FullName + "." + key; 
+        
+        if (Configurations.ContainsKey(name))
+        {
+            var a = Configurations[name];
+            return new FluentPropertyConfiguration<T, TKey>(a, Configurations, containerType);
+        }
+        var cfg = new FluentPropertyConfiguration<T, TKey>(Configurations, containerType);
+        cfg.AddKey(name);
         return cfg;
     }
 }

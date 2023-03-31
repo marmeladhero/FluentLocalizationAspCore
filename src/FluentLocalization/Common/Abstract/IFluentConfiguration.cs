@@ -10,6 +10,7 @@ public interface IFluentConfiguration
 public interface IFluentConfiguration<T> : IFluentConfiguration where T : class
 {
     IFluentPropertyConfiguration For<TKey>(Expression<Func<T, TKey>> expression);
+    IFluentPropertyConfiguration<T, TKey> ForEnumerable<TKey>(Expression<Func<T, TKey>> expression);
 }
 
 public interface IFluentPropertyConfiguration
@@ -23,5 +24,10 @@ public interface IFluentPropertyConfiguration
     IFluentPropertyConfiguration DisplayName(string displayName);
     IFluentPropertyConfiguration Description(string description);
     IFluentPropertyConfiguration Placeholder(string placeholder);
-    
+
+}
+
+public interface IFluentPropertyConfiguration<TEntity, TProperty> : IFluentPropertyConfiguration
+{
+    // IFluentPropertyConfiguration<TEntity, TProperty> For<TPreviousProperty>();
 }

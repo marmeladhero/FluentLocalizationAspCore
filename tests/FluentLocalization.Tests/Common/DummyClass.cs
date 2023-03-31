@@ -8,6 +8,8 @@ public class DummyClass
     
     public Nested NestedClass { get; set; } = null!;
     
+    public List<Nested> NestedClasses { get; set; }
+    
     public class Nested
     {
         public string Property2 { get; set; } = null!;
